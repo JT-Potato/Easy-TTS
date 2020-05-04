@@ -11,24 +11,29 @@ def t2p():
 			wordsoundlist.extend(letter)
 
 		progress = 0
+		graphemesforword = []
 		for entry in wordsoundlist:
 			#Rule 1: Long vowel vs short vowel
 			if wordsoundlist[progress] in vowels:
-				progress1 = progress + 1
-				if len(wordsoundlist) - progress > 1
-				if wordsoundlist[progress1] in consonants:
-					if len(wordsoundlist) - progress > 2:
-						progress2 = progress + 2
-						if wordsoundlist[progress2] is 'e':
-							print('Long ' + wordsoundlist[progress])
-						elif len(wordsoundlist) - progress > 3:
-							progress3 = progress + 3
-							if wordsoundlist[progress3] is 'e':
-								print('Long ' + wordsoundlist[progress])
+				if len(wordsoundlist) - progress > 1:
+					if wordsoundlist[progress + 1] in consonants:
+						if len(wordsoundlist) - progress > 2:
+							if wordsoundlist[progress + 2] is 'e':
+								graphemesforword[progress] = 'Long ' + wordsoundlist[progress]
+							elif len(wordsoundlist) - progress > 3:
+								if wordsoundlist[progress + 3] is 'e':
+									graphemesforword[progress] = 'Long ' + wordsoundlist[progress]
+								else:
+									graphemesforword[progress] = 'Short ' + wordsoundlist[progress]
 							else:
-								print('Short ' + wordsoundlist[progress])
+								graphemesforword[progress] = 'Short ' + wordsoundlist[progress]
 						else:
-							print('Short ' + wordsoundlist[progress])
-					else:
-						print('Short ' + wordsoundlist[progress])
+							graphemesforword[progress] = 'Short ' + wordsoundlist[progress]
+
+			#Rule 2: The "el" exeption
+			if wordsoundlist[progress] is 'e':
+				if len(wordsoundlist) - progress > 1:
+					if wordsoundlist[progress + 1] is 'l':
+						print('Short e')
 			progress += 1
+			print(graphemesforword)
